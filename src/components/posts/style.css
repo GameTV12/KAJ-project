@@ -1,0 +1,16 @@
+.post__title{
+    color: #61dafb;
+    font-family: "Tahoma", serif;
+}
+
+p{
+    font-size: 2em;
+}
+
+.post{
+    background-color: rgba(122, 10, 99, 0.5);
+}
+
+div button{
+    display: block;
+}
