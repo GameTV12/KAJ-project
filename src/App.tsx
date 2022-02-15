@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Post, PostProps} from "./components/posts/post";
+import {TopBar} from "./components/topbar/topBar";
 
 
 function App() {
@@ -23,8 +24,13 @@ function App() {
 
     return (
         <>
-            <h1>Title</h1>
-            <div>{posts.map((post:PostProps) => <Post key={post.id}{...post}/>)}</div>
+            <TopBar />
+            <div className="container">
+                <section className="row">
+                    <h1 className={"text-center"}>Main page</h1>
+                    {posts.map((post:PostProps) => <Post key={post.id}{...post}/>)}
+                </section>
+            </div>
         </>
     );
 }
