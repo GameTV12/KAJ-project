@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    build: src/db
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: epoll
+    ports:
+      - "5432:5432"
+  backend:
+    build: .
+    container_name: backend
+    restart: always
+    depends_on:
+      - "db"
+    ports:
+      - "8080:8080"
+  react:
+    build: src/frontend
+    container_name: react
+    restart: always
+    depends_on:
+      - "backend"
+    ports:
+    - "3000:3000"
