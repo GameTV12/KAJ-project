@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
   react:
-    build: src/frontend
+    build: src/react
     container_name: react
     restart: always
     depends_on:

@@ -1,0 +1,71 @@
+.post__text{
+    font-size: 1.05rem;
+    text-indent: 1rem;
+}
+
+div button{
+    display: block;
+}
+
+.post__variant__bar{
+    height: 2.4em;
+    text-indent: 0.75em;
+    text-align: left;
+    position: relative;
+    font-size: 1em;
+    width: 100%;
+    float: left;
+    margin: 0.5em 0;
+    background-color: #c4c6c2;
+}
+
+.post__variant__bar div{
+    text-align: left;
+}
+
+
+.post__variant__link{
+    text-align: left;
+    color: white;
+    font-weight: 600;
+}
+
+.post__variant__text{
+    z-index: 1;
+    display: block;
+    position: absolute;
+    color: aliceblue;
+    font-weight: 600;
+}
+
+.post__variant__block{
+}
+
+.post__author {
+    font-size: 1.2rem;
+}
+
+.post__time {
+    font-size: 1rem;
+    font-style: italic;
+    color: lightseagreen;
+    font-weight: 450;
+}
+
+.post__avatar{
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.post__views {
+    font-size: 1.1rem;
+}
+
+.post__fullButton{
+    margin-bottom: 0.5rem;
+}
+
+.post__a {
+    cursor: pointer;
+}
