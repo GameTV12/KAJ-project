@@ -26,6 +26,8 @@ export function Login( {closeModal}: any ) {
                                 className="form-control"
                                 placeholder={t('enter_nickname')}
                                 id="nickname_id"
+                                required
+                                pattern={"[A-Za-z0-9!@#]{5,20}$"}
                             />
                         </div>
                         <div className="mb-3">
@@ -35,6 +37,8 @@ export function Login( {closeModal}: any ) {
                                 className="form-control"
                                 placeholder={t('enter_password')}
                                 id="password_id"
+                                required
+                                pattern={"/^[a-zA-Z0-9!@#\\$%\\^\\&*_=+-]{6,18}$/g"}
                             />
                         </div>
                     </Modal.Body>

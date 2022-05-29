@@ -54,7 +54,7 @@ export function TopBar(){
                             <Button variant="outline-success"><SearchIcon/></Button>
                         </Form>
                         <Form className="d-flex me-auto">
-                            <Button variant="outline-warning">{t('write_post')}</Button>
+                            <a href={"/writepost"}><Button variant="outline-warning">{t('write_post')}</Button></a>
                         </Form>
                         <NavDropdown title={t('dropdown_lang')} id="basic-nav-dropdown">
                             {languages.map(({ code, name, country_code})=>(

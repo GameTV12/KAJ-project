@@ -27,5 +27,19 @@
   "add": "Add",
   "variant": "Variant",
   "enter_variant": "Enter variant",
-  "enter_number": "Enter phone number"
+  "enter_number": "Enter phone number",
+  "reply_to": "Reply to",
+  "return_to_last": "Return to last post",
+  "title": "Title",
+  "enter_title": "Enter title",
+  "text": "Text",
+  "enter_text": "Write text",
+  "add_poll": "Add poll",
+  "add_variants": "Add variants",
+  "new_post": "New post",
+  "return_from_writepost": "Don't wanna write new post",
+  "on_off_sound": "On/off sound",
+  "download_image": "Download image",
+  "lmb_guide": "LMB - draw",
+  "lmb_double_guide": "Double LMB - reset"
 }

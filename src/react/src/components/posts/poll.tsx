@@ -46,7 +46,7 @@ function PollVariant(props: VariantProps) {
     return (
         <>
             <div className={"post__variant__block"}>
-                <a href={"https://google.com"} className={"text-decoration-none font-weight-bold post__variant_link text-dark"}>
+                <a href={`/variant/${props.id}/comments`} className={"text-decoration-none font-weight-bold post__variant_link text-dark"}>
                     <ProgressBar className={"post__variant__bar"} now={percent} animated label={<span className={"post__variant__text"}>{props.text} ({percent}%)</span>}/>
                 </a>
             </div>

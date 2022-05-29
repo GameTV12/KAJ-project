@@ -26,5 +26,19 @@
   "add_new_variant": "Přídat novou variantu",
   "add": "Přídat",
   "variant": "Varianta",
-  "enter_variant": "Napište variantu"
+  "enter_variant": "Napište variantu",
+  "reply_to": "Odpověd na",
+  "return_to_last": "Vrátit se do posledního postu",
+  "title": "Nadpis",
+  "enter_title": "Napište nadpis",
+  "text": "Text",
+  "enter_text": "Napište text",
+  "add_poll": "Přídat hlasování",
+  "add_variants": "Přídat varianty",
+  "new_post": "Nový post",
+  "return_from_writepost": "Nepotřebujete nový post",
+  "on_off_sound": "On/off zvuk",
+  "download_image": "Stáhnout obraz",
+  "lmb_guide": "LTM - kreslit",
+  "lmb_double_guide": "Dvakrát LTM - vyčistit"
 }

@@ -1,0 +1,31 @@
+.comment__text{
+    font-size: 1.05rem;
+    text-indent: 1rem;
+}
+
+.comment__author {
+    font-size: 1.2rem;
+}
+
+.comment__field {
+    padding: 1.5em;
+    background: rgba(102, 255, 0, 1);
+}
+
+.comment__field textarea {
+    resize: none;
+    margin-bottom: 1em;
+}
+
+.comment__comments{
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.comment__back:hover{
+    cursor: pointer;
+}
+
+.comment__comments > section.row > div.card:last-child{
+    margin-bottom: 230px;
+}

@@ -1,5 +1,5 @@
 import "./register.css"
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Route, Link} from "react-router-dom";
 import {Container, Row} from "react-bootstrap";
@@ -14,6 +14,9 @@ export type RegisterProps = {
 }
 
 export function Register() {
+    const origPassRef: any = useRef(null);
+    const confPassRef: any = useRef(null);
+
     const url: string = "http://localhost:8080/epoll/auth/signUp";
     const [data, setData] = useState({
         username: "",
@@ -44,10 +47,30 @@ export function Register() {
         setData(newdata);
     }
 
+    function confirm(e: any) {
+        const confirmPass: string = confPassRef.current.value;
+        const originalPass: string = origPassRef.current.value;
+        if (originalPass!=confirmPass){
+            confPassRef.current.style.border = "2px solid red";
+            confPassRef.current.style.boxSizing = "border-box";
+            origPassRef.current.style.border = "2px solid red";
+            origPassRef.current.style.boxSizing = "border-box";
+        }
+        if (originalPass==confirmPass){
+            confPassRef.current.style.border = "1px solid #ced4da";
+            confPassRef.current.style.boxSizing = "border-box";
+            origPassRef.current.style.border = "1px solid #ced4da";
+            origPassRef.current.style.boxSizing = "border-box";
+        }
+    }
+
     const { t, i18n } = useTranslation();
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <>
-            <Container>
+            <Container className={"register__main"}>
                 <Row>
                     <form onSubmit={(e)=>submit(e)}>
                         <h3>{t('create_new_user')}</h3>
@@ -59,15 +82,19 @@ export function Register() {
                                 placeholder={t('enter_nickname(unique)')}
                                 id="username"
                                 value={data.username}
+                                required
+                                pattern={"[A-Za-z0-9!@#]{5,20}$"}
                                 onChange={(e) => handle(e)}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">E-mail</label>
                             <input
                                 id="email"
                                 type="email"
                                 className="form-control"
+                                required
+                                pattern={"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$"}
                                 placeholder={t('enter_email')}
                                 value={data.email}
                                 onChange={(e) => handle(e)}
@@ -78,10 +105,13 @@ export function Register() {
                             <input
                                 id="password"
                                 type="password"
+                                required
+                                pattern={"/^[a-zA-Z0-9!@#\\$%\\^\\&*_=+-]{6,18}$/g"}
                                 className="form-control"
                                 placeholder={t('enter_password')}
                                 value={data.password}
-                                onChange={(e) => handle(e)}
+                                ref={origPassRef}
+                                onChange={(e) => {handle(e); confirm(e)}}
                             />
                         </div>
                         <div className="mb-3">
@@ -89,8 +119,11 @@ export function Register() {
                             <input
                                 id="id_confirm"
                                 type="password"
+                                required
                                 className="form-control"
                                 placeholder={t('enter_password')}
+                                onChange={(e) => confirm(e)}
+                                ref={confPassRef}
                             />
                         </div>
                         <div className="mb-3">
@@ -98,6 +131,7 @@ export function Register() {
                             <input
                                 type="text"
                                 className="form-control"
+                                required
                                 placeholder={t('enter_number')}
                                 id="phoneNumber"
                                 value={data.phoneNumber}
@@ -108,8 +142,11 @@ export function Register() {
                             <label htmlFor="age">{t('age')}</label>
                             <input
                                 type="number"
+                                required
                                 className="form-control"
                                 id="age"
+                                min={0}
+                                max={150}
                                 value={data.age}
                                 onChange={(e) => handle(e)}
                             />

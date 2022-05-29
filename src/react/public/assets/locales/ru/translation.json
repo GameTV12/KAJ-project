@@ -26,5 +26,19 @@
   "add_new_variant": "Добавить новый вариант",
   "add": "Добавить",
   "variant": "Вариант",
-  "enter_variant": "Введите вариант"
+  "enter_variant": "Введите вариант",
+  "reply_to": "Ответ на",
+  "return_to_last": "Вернуться к последнему посту",
+  "title": "Заголовок",
+  "enter_title": "Введите заголовок",
+  "text": "Текст",
+  "enter_text": "Напишите текст",
+  "add_poll": "Добавить голосование",
+  "add_variants": "Добавить варианты",
+  "new_post": "Новый пост",
+  "return_from_writepost": "Не нужен новый пост",
+  "on_off_sound": "Вкл/выкл звук",
+  "download_image": "Скачать фото",
+  "lmb_guide": "ЛКМ - рисовать",
+  "lmb_double_guide": "Два раза ЛКМ - обновить"
 }

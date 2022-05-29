@@ -30,7 +30,7 @@ export function Post({title, text, id, poll, videoUrl, createdBy, createdAt}: Po
 
     return (
         <>
-        <Card className={"p-4 mt-5 col-xxl-10 offset-xxl-1 col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-sm-12 col-xs-12 col-12 bg-light"}>
+        <article className={"p-4 mb-5 col-xxl-10 offset-xxl-1 col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-sm-12 col-xs-12 col-12 bg-light"}>
             <Row>
                 <Col xl={10} lg={10} md={9} sm={8} className={"post__author"}>{createdBy}&nbsp;&nbsp;&nbsp;<span className={"post__time"}>{moment(createdAt).format("HH:mm DD/MM/YY")}</span></Col>
                 <Col xl={2} lg={2} md={3} sm={4} className={"d-flex flex-row-reverse"}>{(poll != null && !poll.frozen) ? <><a className={"post__a"} onClick={() => setOpenModal(true)}><AiOutlinePlusSquare size={32} color={"blue"}/></a></> : ""}</Col>
@@ -42,9 +42,9 @@ export function Post({title, text, id, poll, videoUrl, createdBy, createdAt}: Po
                 <Col xl={10} lg={10} md={9} sm={8} xs={8} className={"post__views"}>
                     {summaryVotes > 0 ? <><AiOutlineEye size={24}/>&nbsp;{summaryVotes}</> : ""}
                 </Col>
-                <Col xl={2} lg={2} md={3} sm={4} xs={4} className={"d-flex flex-row-reverse"}><a href={"https://google.com"}><BiComment size={32} color={"blue"}/></a></Col>
+                <Col xl={2} lg={2} md={3} sm={4} xs={4} className={"d-flex flex-row-reverse"}><a href={`/post/${id}/comments`}><BiComment size={32} color={"blue"}/></a></Col>
             </Row>
-        </Card>
+        </article>
             {openModal && <AddNewVariant closeModal={setOpenModal} />}
         </>
     );

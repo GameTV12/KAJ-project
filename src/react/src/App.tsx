@@ -7,6 +7,10 @@ import CookiesBanner from "./components/cookies/CookiesBanner";
 import {TopBar} from "./components/topbar/topBar";
 import {Homepage} from "./components/homepage/Homepage";
 import {NotFound} from "./components/notfound/notfound";
+import {PostCommentsPage} from "./components/comments/PostCommentsPage";
+import {WriteNewPost} from "./components/posts/WriteNewPost";
+import {VariantCommentsPage} from "./components/comments/VariantCommentsPage";
+import {Welcome} from "./components/welcome/Welcome";
 //import {TopBar} from "./components/topbar/topBar";
 
 
@@ -35,13 +39,14 @@ function App() {
                 <Route path="/" element={<Homepage />} />
                 <Route path="/register" element={<Register/>}/>
                 {/*<Route path="/post/:id" element={<PostFull/>}/>*/}
-                {/*<Route path="/post/:id/comments" element={<PostComments/>}/>*/}
+                <Route path="/post/:postId/comments" element={<PostCommentsPage/>}/>
+                <Route path="/variant/:variantId/comments" element={<VariantCommentsPage/>}/>
                 {/*<Route path="/user/:id/posts" element={<AllPosts/>}/>*/}
-                {/*<Route path="/register/after" element={<AfterRegistration/>}/>*/}
+                <Route path="/register/after" element={<Welcome/>}/>
                 <Route path="*" element={<NotFound />}/>
 
                 {/*{regularUser && (*/}
-                {/*    <Route path="/writepost" element={<WritePost/>}/>*/}
+                <Route path="/writepost" element={<WriteNewPost/>}/>
                 {/*    <Route path="/myfollowers" element={<MyFollowers/>}/>*/}
                 {/*)}*/}
 
