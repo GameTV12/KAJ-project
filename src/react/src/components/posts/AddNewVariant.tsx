@@ -7,6 +7,10 @@ export type LoginProps = {
     password: string
 }
 
+/*
+    * A modal page for adding a new variant
+*/
+
 export function AddNewVariant( {closeModal}: any ) {
     const { t, i18n } = useTranslation();
     return (

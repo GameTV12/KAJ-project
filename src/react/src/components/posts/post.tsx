@@ -18,6 +18,11 @@ export type PostProps = {
     createdBy: string;
     createdAt: Date;
 }
+
+/*
+    * A post component
+*/
+
 export function Post({title, text, id, poll, videoUrl, createdBy, createdAt}: PostProps) {
     const { t, i18n } = useTranslation();
     const [openModal, setOpenModal] = useState(false);

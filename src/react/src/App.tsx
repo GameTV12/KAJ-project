@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import './App.css';
 import {Post, PostProps} from "./components/posts/post";
@@ -11,54 +11,45 @@ import {PostCommentsPage} from "./components/comments/PostCommentsPage";
 import {WriteNewPost} from "./components/posts/WriteNewPost";
 import {VariantCommentsPage} from "./components/comments/VariantCommentsPage";
 import {Welcome} from "./components/welcome/Welcome";
-//import {TopBar} from "./components/topbar/topBar";
+import { UserContext } from "./components/login/UserContext";
 
+
+/*
+    * It's core file of the app. Core React file
+    * App starts all pages and defines all routes
+    * App is also file for authorization
+ */
 
 function App() {
 
-    const [regularUser, setRegularUser] = useState(false);
-    const [admin, setAdmin] = useState(false);
-    const [moderator, setModerator] = useState(false);
-    const [banned, setBanned] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
+    // @ts-ignore
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false);
 
-    // useEffect(() => {
-    //     const user = AuthService.getCurrentUser();
-    //     if (user) {
-    //         setCurrentUser(user);
-    //         setRegularUser(user.roles.includes("ROLE_REGULAR_USER"));
-    //         setAdmin(user.roles.includes("ROLE_ADMIN"));
-    //         setSystemOwner(user.roles.includes("ROLE_SYSTEM_OWNER"));
-    //         setSystemEmployee(user.roles.includes("ROLE_SYSTEM_EMPLOYEE"));
-    //     }
-    // }, []);
+    useEffect( () => {
+        // @ts-ignore
+        setCurrentUser(localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false);
+    }, [localStorage.getItem("currentUser")])
 
+
+    // Routes for users. These routes manage access to pages
+    // @ts-ignore
     return (
         <>
             <Routes>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/register" element={<Register/>}/>
-                {/*<Route path="/post/:id" element={<PostFull/>}/>*/}
-                <Route path="/post/:postId/comments" element={<PostCommentsPage/>}/>
-                <Route path="/variant/:variantId/comments" element={<VariantCommentsPage/>}/>
-                {/*<Route path="/user/:id/posts" element={<AllPosts/>}/>*/}
-                <Route path="/register/after" element={<Welcome/>}/>
-                <Route path="*" element={<NotFound />}/>
+                    <Route path="/" element={<Homepage />} />
+                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/post/:postId/comments" element={<PostCommentsPage/>}/>
+                    <Route path="/variant/:variantId/comments" element={<VariantCommentsPage/>}/>
+                    <Route path="/register/after" element={<Welcome/>}/>
+                    <Route path="*" element={<NotFound />}/>
 
-                {/*{regularUser && (*/}
-                <Route path="/writepost" element={<WriteNewPost/>}/>
-                {/*    <Route path="/myfollowers" element={<MyFollowers/>}/>*/}
-                {/*)}*/}
+                    {currentUser!=null && currentUser!=false ?
+                    <Route path="/writepost" element={<WriteNewPost/>}/> : ""}
 
-                {/*{moderator && (*/}
-                {/*    <Route path="/" element={<CustomerRoutes/>}/>*/}
-                {/*)}*/}
-
-                {/*{banned && (*/}
-                {/*    <Route path="/" element={<CustomerRoutes/>}/>*/}
-                {/*)}*/}
+                    {/*{banned && (*/}
+                    {/*    <Route path="/" element={<CustomerRoutes/>}/>*/}
+                    {/*)}*/}
             </Routes>
-
         </>
 
     );

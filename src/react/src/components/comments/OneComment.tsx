@@ -4,6 +4,10 @@ import {Card, Col, Row} from 'react-bootstrap';
 import moment from 'moment';
 import {useTranslation} from "react-i18next";
 
+/*
+    * A comment of post/variant, because these comments are equal
+    * (post comment and variant comment has one parent class in spring)
+*/
 
 export type CommentProps = {
     id: number;

@@ -9,6 +9,10 @@ import {TopBar} from "./components/topbar/topBar";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Register} from "./components/register/register";
 
+/*
+    * index.tsx defines render and renders the app, because react works through rendering of its virtual DOM
+*/
+
 // ReactDOM.render(
 //     <Suspense fallback>
 //       <React.StrictMode>

@@ -13,6 +13,11 @@ export type RegisterProps = {
     age: number
 }
 
+/*
+    * If you haven't a profile you must sign up.
+    * It's a page for creating a new profile with validation
+*/
+
 export function Register() {
     const origPassRef: any = useRef(null);
     const confPassRef: any = useRef(null);
@@ -65,9 +70,6 @@ export function Register() {
     }
 
     const { t, i18n } = useTranslation();
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
     return (
         <>
             <Container className={"register__main"}>

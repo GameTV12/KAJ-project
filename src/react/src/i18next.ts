@@ -7,6 +7,11 @@ import HttpApi from 'i18next-http-backend';
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 
+/*
+    * i18next.ts is file for translation and multi-language application
+    * i18next use cookies for language changing
+ */
+
 i18n
     .use(initReactI18next)
     .use(LanguageDetector)

@@ -8,6 +8,12 @@ import draw_finish from "./draw_finish.mp3";
 import draw_cleared from "./draw_cleared.mp3";
 
 
+/*
+    * A page 404. If you write strange and unusual adress (/efdsfgdsaf or /ahahahahha) you see this page
+    * This page has mini game - you can draw something and download this like image.png
+    * This page also has loading animation
+*/
+
 export type RegisterProps = {
     name: string
     password: string

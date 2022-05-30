@@ -34,7 +34,20 @@ export function TopBar(){
     const currentLanguage = languages.find(l => l.code === currentLanguageCode);
 
     const [openModal, setOpenModal] = useState(false);
+    // @ts-ignore
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false);
 
+    useEffect( () => {
+        // @ts-ignore
+        setCurrentUser(localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false);
+    }, [localStorage.getItem("currentUser")])
+
+    function logout() {
+        localStorage.removeItem("currentUser");
+        setCurrentUser(false);
+    }
+
+    // @ts-ignore
     return (
         <>
             <Navbar className="fixed-top navbar navbar-dark bg-dark text-white container-fluid" expand="lg">
@@ -44,7 +57,7 @@ export function TopBar(){
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
 
-                        <Form className="d-flex me-auto col-xxl-7 col-lg-6 offset-xxl-1 col-xl-6 offset-xl-1 col-md-12 col-sm-12 col-xs-12 col-12">
+                        <Form className="d-flex me-auto col-xxl-6 col-lg-5 offset-xxl-1 col-xl-6 offset-xl-1 col-md-12 col-sm-12 col-xs-12 col-12">
                             <FormControl
                                 type="search"
                                 placeholder={t('search')}
@@ -54,7 +67,7 @@ export function TopBar(){
                             <Button variant="outline-success"><SearchIcon/></Button>
                         </Form>
                         <Form className="d-flex me-auto">
-                            <a href={"/writepost"}><Button variant="outline-warning">{t('write_post')}</Button></a>
+                            {currentUser!=null && currentUser!=false ? <a href={"/writepost"}><Button variant="outline-warning">{t('write_post')}</Button></a> : ""}
                         </Form>
                         <NavDropdown title={t('dropdown_lang')} id="basic-nav-dropdown">
                             {languages.map(({ code, name, country_code})=>(
@@ -65,12 +78,21 @@ export function TopBar(){
                                 >{name}</button>
                             ))}
                         </NavDropdown>
-                        <NavDropdown title={<PersonOutlineIcon/>}>
+
+                        {currentUser!=null && currentUser!=false ?
+                            // @ts-ignore
+                            <NavDropdown title={currentUser.username}>
+                                <button
+                                    onClick={logout}
+                                    className="dropdown-item"
+                                >{t('log_out')}</button>
+                            </NavDropdown> :
+                            <NavDropdown title={<PersonOutlineIcon/>}>
                             <button
                                 onClick={() => setOpenModal(true)}
                                 className="dropdown-item"
                             >{t('log_in')}</button><a href="/register" className="dropdown-item">{t('sign_up')}</a>
-                        </NavDropdown>
+                        </NavDropdown>}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

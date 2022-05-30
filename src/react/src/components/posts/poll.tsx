@@ -4,6 +4,7 @@ import {Card, ProgressBar} from 'react-bootstrap';
 import {useTranslation} from "react-i18next";
 import {Login} from "../login/login";
 
+// If frozen is false you can add a new variant to this poll, else - no
 export type PollProps = {
     id: number;
     frozen: boolean;

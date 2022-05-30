@@ -5,34 +5,39 @@ import {Col, Container, Row} from "react-bootstrap";
 import {Axios} from "axios";
 
 export type NewPostProps = {
-    username: string,
-    password: string,
-    phoneNumber: string,
-    email: string,
-    age: number
+    title: string,
+    text: string,
+    photos: string[]
 }
+
+/*
+    * A page for writing new posts with input validation
+*/
 
 export function WriteNewPost() {
     const url: string = "http://localhost:8080/epoll/auth/signUp";
-    const [data, setData] = useState({
-        username: "",
-        password: "",
-        phoneNumber: "",
-        email: "",
-        age: 0
+    // @ts-ignore
+    const [data, setData] = useState(localStorage.getItem('regData') ? JSON.parse(localStorage.getItem('regData')) : {
+        title: "",
+        text: "",
+        photos: [],
     });
+    const [highLight, setHighLight] = useState(false);
+    useEffect(()=> {
+        localStorage.setItem('regData', JSON.stringify(data));
+    }, [data])
+
     const axios = require('axios');
     function submit(e: any){
         e.preventDefault();
         axios.post(url, {
-            username: data.username,
-            password: data.password,
-            phoneNumber: data.phoneNumber,
-            email: data.email,
-            age: data.age
+            title: data.title,
+            text: data.text,
+            photos: data.photos,
         }).then((res: any) => {
             // @ts-ignore
             document.querySelectorAll("input").forEach(x => x.value = "");
+            document.querySelectorAll("textarea").forEach(x => x.value = "");
             console.log(res.data)
         })
     }
@@ -43,10 +48,69 @@ export function WriteNewPost() {
         setData(newdata);
     }
 
+    function handleFile(e: any) {
+        let files = e.target.files;
+        handeFiles(files);
+    }
+
+    const handeFiles = (files: any[]) => {
+        let photosArr: any = [];
+        for (let file of files){
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.addEventListener('load', ()=>{
+                let fileObj={
+                    name:file.name,
+                    type:file.type,
+                    size:file.size,
+                    src:reader.result
+                }
+                photosArr.push(fileObj);
+                setData({
+                    ...data,
+                    // @ts-ignore
+                    photos: [...data.photos, ...photosArr]
+                })
+            })
+        }
+    }
+
+    function handleDelete(e: any) {
+        let target = e.target.parentElement;
+        let targetIndex = target.dataset.imgindex * 1;
+        setData({
+            ...data,
+            // @ts-ignore
+            photos: [...data.photos.slice(0, targetIndex), ...data.photos.slice(targetIndex+1)]
+        })
+    }
+
+    function handleHighLight(e: any) {
+        e.preventDefault();
+        e.stopPropagation();
+        setHighLight(true);
+    }
+    function handleUnHighLight(e: any) {
+        e.preventDefault();
+        e.stopPropagation();
+        setHighLight(false);
+    }
+    function handleDrop(e: any) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        setHighLight(false);
+        handeFiles(files);
+    }
+
 
 
 
     const { t, i18n } = useTranslation();
+    // @ts-ignore
+    // @ts-ignore
     return (
         <>
             <Container className={"new__main__div"}>
@@ -56,21 +120,47 @@ export function WriteNewPost() {
                             <form onSubmit={(e)=>submit(e)}>
                                 <h3>{t('write_post')}</h3>
                                 <div className="mb-3">
-                                    <label htmlFor="username">{t('title')}</label>
+                                    <label htmlFor="title">{t('title')}</label>
                                     <input
                                         type="text"
                                         className="form-control"
                                         placeholder={t('enter_title')}
-                                        id="username"
-                                        value={data.username}
+                                        id="title"
+                                        value={data.title}
                                         required
                                         pattern={"[A-Za-z0-9!@#]{5,50}$"}
                                         onChange={(e) => handle(e)}
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="text_post">{t('text')}</label>
-                                    <textarea className="form-control" id="text_post" rows={3} placeholder={t('enter_text')} required/>
+                                    <label htmlFor="text">{t('text')}</label>
+                                    <textarea className="form-control" id="text" rows={3} placeholder={t('enter_text')} value={data.text} required onChange={(e) => handle(e)}/>
+                                </div>
+                                <div className={"mb-3 custom-form-group"}>
+                                    <div className={highLight? "custom-file-drop-area highlight" : "custom-file-drop-area"}
+                                         onDragEnter={handleHighLight}
+                                         onDragOver={handleHighLight}
+                                         onDragLeave={handleUnHighLight}
+                                         onDrop={handleDrop}
+                                    >
+                                        <label htmlFor="photos">{t('title')}</label>
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            placeholder={t('enter_title')}
+                                            id="photos"
+                                            multiple={true}
+                                            onChange={(e) => handleFile(e)}
+                                        />
+                                    </div>
+                                    <div className={"custom-file-preview"}>
+                                        {data.photos.length > 0 && data.photos.map((item: any, index: number)=>(
+                                            <div className="prev-img" key={index} data-imgindex={index}>
+                                                <span onClick={(e) => handleDelete(e)}>&times;</span>
+                                                <img src={item.src} alt={item.name}/>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                                 <div className="d-grid">
                                     <button type="submit" className="btn btn-primary">
