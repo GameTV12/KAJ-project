@@ -28,6 +28,8 @@ http://localhost:3000/writepost - napsat post
 
 http://localhost:3000/post/110/comments - komentáře postu 
 
+https://github.com/GameTV12/KAJ-project/blob/main/doc/KAJ%20-%20hodnocen%C3%AD.xlsx - tabulka
+
 # Závěr: 
 
 Tento projekt byl velmi přínosný a užitečný pro mě. Naučil jsem nové věci, které budu používat v své praxi. 
