@@ -35,7 +35,6 @@ export function Login( {closeModal}: any ) {
         }).then((res: any) => {
             // @ts-ignore
             document.querySelectorAll("input").forEach(x => x.value = "");
-            console.log(res.data)
             if (res.data.accessToken == null || res.data.accessToken=='') {
             } else {
                 localStorage.setItem("currentUser", JSON.stringify(res.data));

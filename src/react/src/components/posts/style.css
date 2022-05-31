@@ -292,3 +292,15 @@ article{
 span + img {
     max-width: 100%;
 }
+
+.new_variant {
+    margin-top: 0.5em;
+}
+
+input[type="checkbox"]+label+div>div:first-child>div>button:last-child{
+    display: none;
+}
+
+input[type="checkbox"]+label+div>div{
+    margin-top: 1em;
+}

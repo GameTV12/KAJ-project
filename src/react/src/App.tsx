@@ -9,9 +9,7 @@ import {Homepage} from "./components/homepage/Homepage";
 import {NotFound} from "./components/notfound/notfound";
 import {PostCommentsPage} from "./components/comments/PostCommentsPage";
 import {WriteNewPost} from "./components/posts/WriteNewPost";
-import {VariantCommentsPage} from "./components/comments/VariantCommentsPage";
 import {Welcome} from "./components/welcome/Welcome";
-import { UserContext } from "./components/login/UserContext";
 
 
 /*
@@ -38,8 +36,7 @@ function App() {
             <Routes>
                     <Route path="/" element={<Homepage />} />
                     <Route path="/register" element={<Register/>}/>
-                    <Route path="/post/:postId/comments" element={<PostCommentsPage/>}/>
-                    <Route path="/variant/:variantId/comments" element={<VariantCommentsPage/>}/>
+                    <Route path="/:elementType/:elementID/comments" element={<PostCommentsPage/>}/>
                     <Route path="/register/after" element={<Welcome/>}/>
                     <Route path="*" element={<NotFound />}/>
 

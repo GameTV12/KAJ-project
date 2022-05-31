@@ -1,44 +1,61 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Route, Link} from "react-router-dom";
+import {Route, Link, useNavigate} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {Axios} from "axios";
-
-export type NewPostProps = {
-    title: string,
-    text: string,
-    photos: string[]
-}
-
+import "../posts/style.css";
+import {GrAdd} from "react-icons/gr"
+import {BiMinus} from "react-icons/bi"
 /*
     * A page for writing new posts with input validation
 */
 
 export function WriteNewPost() {
-    const url: string = "http://localhost:8080/epoll/auth/signUp";
+    const nav = useNavigate();
     // @ts-ignore
-    const [data, setData] = useState(localStorage.getItem('regData') ? JSON.parse(localStorage.getItem('regData')) : {
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false);
+    useEffect( () => {
+        // @ts-ignore
+        setCurrentUser(localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false);
+    }, [localStorage.getItem("currentUser")])
+
+    const variantAdder = useRef(null);
+
+    const url: string = "http://localhost:8080/epoll/post/";
+    // @ts-ignore
+    const [data, setData] = useState(localStorage.getItem('postData') ? JSON.parse(localStorage.getItem('postData')) : {
         title: "",
         text: "",
         photos: [],
+        frozen: false,
+        variants: [""]
     });
     const [highLight, setHighLight] = useState(false);
     useEffect(()=> {
-        localStorage.setItem('regData', JSON.stringify(data));
+        localStorage.setItem('postData', JSON.stringify(data));
     }, [data])
 
     const axios = require('axios');
     function submit(e: any){
         e.preventDefault();
-        axios.post(url, {
+        const finalVariants = [...data.variants.filter((x: any) => x.text != "")];
+        console.log(finalVariants);
+        axios.post(url, finalVariants.length > 0 ? {
             title: data.title,
-            text: data.text,
-            photos: data.photos,
-        }).then((res: any) => {
+            content: data.text,
+            poll: {frozen: data.frozen, variants: finalVariants}
+        } : {
+                title: data.title,
+                content: data.text
+            }, {headers: {'Authorization' : 'Bearer ' + currentUser.accessToken,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'}}
+        ).then((res: any) => {
             // @ts-ignore
             document.querySelectorAll("input").forEach(x => x.value = "");
             document.querySelectorAll("textarea").forEach(x => x.value = "");
-            console.log(res.data)
+            localStorage.removeItem('postData');
+            nav('/');
         })
     }
 
@@ -51,6 +68,14 @@ export function WriteNewPost() {
     function handleFile(e: any) {
         let files = e.target.files;
         handeFiles(files);
+    }
+
+    function handleCheck(e: any){
+        setData({
+            ...data,
+            // @ts-ignore
+            frozen: !e.target.checked
+        })
     }
 
     const handeFiles = (files: any[]) => {
@@ -106,7 +131,40 @@ export function WriteNewPost() {
     }
 
 
+    function handleChangeVariant(index: number, e: any) {
+        const variants = [...data.variants];
+        let fileObj={text: e.target.value};
+        variants[index] = fileObj;
+        setData({
+            ...data,
+            // @ts-ignore
+            variants: variants
+        })
+    }
 
+    function handleAddVariant(index: number){
+        let variants = [...data.variants];
+        if (variants.length<10){
+            variants.splice(index+1, 0,'');
+            let fileObj={text: ""};
+            variants[index+1] = fileObj;
+            setData({
+                ...data,
+                // @ts-ignore
+                variants: variants
+            })
+        }
+    }
+
+    function handleDeleteVariant(index: number){
+        const variants = [...data.variants];
+        variants.splice(index, 1);
+        setData({
+            ...data,
+            // @ts-ignore
+            variants: variants
+        })
+    }
 
     const { t, i18n } = useTranslation();
     // @ts-ignore
@@ -128,7 +186,7 @@ export function WriteNewPost() {
                                         id="title"
                                         value={data.title}
                                         required
-                                        pattern={"[A-Za-z0-9!@#]{5,50}$"}
+                                        maxLength={50}
                                         onChange={(e) => handle(e)}
                                     />
                                 </div>
@@ -161,6 +219,25 @@ export function WriteNewPost() {
                                             </div>
                                         ))}
                                     </div>
+                                </div>
+                                <h4>{t('poll_title')} (1 - 10)</h4>
+                                <input className="form-check-input" type="checkbox" id="frozen" onChange={(e) => handleCheck(e)} checked={data.frozen}/>
+                                    <label className="form-check-label" htmlFor="frozen">
+                                        { t('frozen_bool')}
+                                    </label>
+                                <div className="mb-3">
+                                    {
+                                        data.variants.map((inputField: any, index: number) => (
+                                            <div key={index} className={"input-group"}>
+                                                <input type="text" className="form-control" id={"variants["+index+"]"}
+                                                       placeholder={t('enter_variant')} value={data.variants[index].text} onChange={(e) => handleChangeVariant(index, e)}/>
+                                                <div className={"input-group-append"}>
+                                                    <button className="btn btn-outline-secondary" type="button" onClick={() => handleAddVariant(index)}><GrAdd></GrAdd></button>
+                                                    <button className="btn btn-outline-secondary" type="button" onClick={() => handleDeleteVariant(index)}><BiMinus></BiMinus></button>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
                                 <div className="d-grid">
                                     <button type="submit" className="btn btn-primary">

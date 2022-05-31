@@ -40,5 +40,7 @@
   "on_off_sound": "On/off zvuk",
   "download_image": "Stáhnout obraz",
   "lmb_guide": "LTM - kreslit",
-  "lmb_double_guide": "Dvakrát LTM - vyčistit"
+  "lmb_double_guide": "Dvakrát LTM - vyčistit",
+  "frozen_bool": "Jiný člověk může přidát svou variantu",
+  "send_comment": "Napsat komentář"
 }

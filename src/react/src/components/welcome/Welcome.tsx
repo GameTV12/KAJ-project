@@ -71,6 +71,11 @@ export function Welcome() {
                                 </video>
                             </div>
                         </div>
+                        <div className="d-flex">
+                            <p className="forgot-password text-right">
+                                <a href="/">{t('return_to_main')}</a>
+                            </p>
+                        </div>
 
                     </Col>
                 </Row>

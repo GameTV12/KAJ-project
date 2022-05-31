@@ -75,7 +75,7 @@ export function Homepage() {
                             window.history.go(1)
                         }}>{t('return_to_last')}</div>
                     {!hasConnection ? <h2>No internet</h2> : ""}
-                    {posts.sort().map((post: PostProps) => <Post key={post.id}{...post}/>)}
+                    {posts.sort((a, b) => a.createdAt < b.createdAt ? 1 : -1).map((post: PostProps) => <Post key={post.id}{...post}/>)}
                 </section>
             </div>
             <footer id="cookies"><CookiesBanner/></footer>

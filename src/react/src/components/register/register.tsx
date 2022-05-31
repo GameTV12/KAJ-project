@@ -1,7 +1,7 @@
 import "./register.css"
 import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Route, Link} from "react-router-dom";
+import {Route, Link, useNavigate} from "react-router-dom";
 import {Container, Row} from "react-bootstrap";
 import {Axios} from "axios";
 
@@ -21,6 +21,7 @@ export type RegisterProps = {
 export function Register() {
     const origPassRef: any = useRef(null);
     const confPassRef: any = useRef(null);
+    const nav = useNavigate();
 
     const url: string = "http://localhost:8080/epoll/auth/signUp";
     const [data, setData] = useState({
@@ -42,7 +43,8 @@ export function Register() {
         }).then((res: any) => {
             // @ts-ignore
             document.querySelectorAll("input").forEach(x => x.value = "");
-            console.log(res.data)
+            console.log(res.data);
+            nav('/register/after');
         })
     }
 

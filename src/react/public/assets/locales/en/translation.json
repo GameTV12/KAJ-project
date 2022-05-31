@@ -41,5 +41,7 @@
   "on_off_sound": "On/off sound",
   "download_image": "Download image",
   "lmb_guide": "LMB - draw",
-  "lmb_double_guide": "Double LMB - reset"
+  "lmb_double_guide": "Double LMB - reset",
+  "frozen_bool": "People can add own variants to vote",
+  "send_comment": "Send comment"
 }

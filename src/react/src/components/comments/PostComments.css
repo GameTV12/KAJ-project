@@ -17,11 +17,6 @@
     margin-bottom: 1em;
 }
 
-.comment__comments{
-    display: flex;
-    -webkit-justify-content: center;
-    justify-content: center;
-}
 .comment__back:hover{
     cursor: pointer;
 }
