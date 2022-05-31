@@ -36,6 +36,7 @@ export function Welcome() {
                 <Row>
                     <Col className={"mt-5"} lg={{span: 10, offset: 1}} xl={{span: 10, offset: 1}} md={{span: 10, offset: 1}} sm={{span: 12, offset: 0}}>
                         <h1 className={"text-center"}>Welcome to Myselect</h1>
+                        <h2 className={"text-center"}>Video manual - <a href={"https://youtu.be/ic-KoPYFrxw"}>https://youtu.be/ic-KoPYFrxw</a></h2>
                         <p className={"welcome__hello"}>Myselect - is a social network for communication between people. The network allows you to create posts, write comments and add a poll to post. You can use this network as independent sociologist for monitoring of public opinions. Are you ready? Let's go!</p>
                         <div className={"d-flex align-items-center justify-content-center"}>
                             <ul><strong>Pages:</strong>
